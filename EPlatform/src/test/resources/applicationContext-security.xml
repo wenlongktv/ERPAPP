@@ -1,0 +1,70 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<http pattern="/login.jsp" security="none" />
+	<http pattern="/resources/**" security="none" />
+
+	<http auto-config="false" access-denied-page="/accessDenied.jsp">
+		<!-- 制定登录界面 -->
+		<form-login login-page="/login.jsp" />
+		<logout logout-success-url="/login.jsp" delete-cookies="JSESSIONID" />
+
+		<!-- session management -->
+		<session-management invalid-session-url="/login.jsp"
+			session-fixation-protection="migrateSession">
+<!-- 			<concurrency-control max-sessions="1" error-if-maximum-exceeded="true" /> -->
+		</session-management>
+
+		<!-- 自定义filter，替代FORM_LOGIN_FILTER -->
+<!-- 		<custom-filter ref="loginFilter" before="FORM_LOGIN_FILTER" /> -->
+
+		<!-- 增加一个自定义的 filter ，放在 FILTER_SECURITY_INTERCEPTOR 之前， 实现用户、角色、资源的数据库管理。 -->
+		<custom-filter ref="secFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+	</http>
+
+<!-- 	<beans:bean id="loginFilter" -->
+<!-- 		class="com.ge.dh.common.authority.security.DHUsernamePasswordAuthenticationFilter"> -->
+		<!-- 处理登录的action -->
+<!-- 		<beans:property name="filterProcessesUrl" value="/j_spring_security_check"></beans:property> -->
+<!-- 		<beans:property name="filterProcessesUrl" value="/login"></beans:property> -->
+		<!-- 验证成功后的处理 -->
+<!-- 		<beans:property name="authenticationSuccessHandler" -->
+<!-- 			ref="loginLogAuthenticationSuccessHandler"></beans:property> -->
+		<!-- 验证失败后的处理 -->
+<!-- 		<beans:property name="authenticationFailureHandler" -->
+<!-- 			ref="simpleUrlAuthenticationFailureHandler"></beans:property> -->
+<!-- 		<beans:property name="authenticationManager" ref="DHAuthenticationManager"></beans:property> -->
+
+<!-- 	</beans:bean> -->
+
+	<!-- 一个自定义的 filter ，必须包含 authenticationManager, accessDecisionManager,securityMetadataSource 
+		三个属性。 -->
+	<beans:bean id="secFilter" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+
+		<beans:property name="authenticationManager" ref="MyAuthenticationManager" />
+		<!-- 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源 -->
+		<beans:property name="accessDecisionManager" ref="MyAccessDecisionManager" />
+		<!-- 资源数据定义，即定义某一资源可以被哪些角色访问 -->
+		<beans:property name="securityMetadataSource" ref="MyInvocationSecurityMetadataSource" />
+		<!--  -->
+		<beans:property name="observeOncePerRequest" value="false" />
+	</beans:bean>
+
+	<!-- 加密器 -->
+	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder">
+		<beans:constructor-arg value="DH-PUB" />
+	</beans:bean>
+
+	<authentication-manager alias="MyAuthenticationManager">
+		<!-- 这里可以设置自定义的Service，从数据库中读取权限信息 -->
+		<authentication-provider user-service-ref="MyUserDetailsService">
+			<password-encoder ref="passwordEncoder" />
+		</authentication-provider>
+
+	</authentication-manager>
+
+</beans:beans>
