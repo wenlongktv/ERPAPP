@@ -58,14 +58,6 @@ public class SysUser
     @Column
     private String            email;
 
-    // @Transient
-    @Column
-    private final boolean     accountNonExpired     = true;
-    @Column
-    private final boolean     accountNonLocked      = true;
-    @Column
-    private final boolean     credentialsNonExpired = true;
-
     @ManyToMany(targetEntity = SysRole.class, fetch = FetchType.EAGER, cascade =
     {
             CascadeType.MERGE, CascadeType.PERSIST
@@ -155,46 +147,6 @@ public class SysUser
         return this.roles;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.springframework.security.core.userdetails.UserDetails#isAccountNonExpired
-     * ()
-     */
-    @Override
-    public boolean isAccountNonExpired()
-    {
-        return this.accountNonExpired;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.springframework.security.core.userdetails.UserDetails#isAccountNonLocked
-     * ()
-     */
-    @Override
-    public boolean isAccountNonLocked()
-    {
-        return this.accountNonLocked;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.security.core.userdetails.UserDetails#
-     * isCredentialsNonExpired()
-     */
-    @Override
-    public boolean isCredentialsNonExpired()
-    {
-        return this.credentialsNonExpired;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.springframework.security.core.userdetails.UserDetails#isEnabled()
-     */
     @Override
     public boolean isEnabled()
     {
@@ -277,9 +229,6 @@ public class SysUser
         sb.append("Username: ").append(this.username).append("; ");
         sb.append("Password: [PROTECTED]; ");
         sb.append("Enabled: ").append(this.enabled).append("; ");
-        sb.append("AccountNonExpired: ").append(this.accountNonExpired).append("; ");
-        sb.append("credentialsNonExpired: ").append(this.credentialsNonExpired).append("; ");
-        sb.append("AccountNonLocked: ").append(this.accountNonLocked).append("; ");
 
         if ( null != this.roles && !this.roles.isEmpty() )
         {
@@ -309,5 +258,23 @@ public class SysUser
     {
         this.enabled = enabled;
     }
+
+	@Override
+	public boolean isAccountNonExpired()
+	{
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked()
+	{
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired()
+	{
+		return true;
+	}
 
 }

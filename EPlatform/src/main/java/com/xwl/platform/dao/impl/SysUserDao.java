@@ -15,6 +15,9 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import com.xwl.platform.dao.ISysUserDao;
@@ -27,7 +30,7 @@ import com.xwl.platform.model.SysUser;
  */
 @SuppressWarnings({ "unchecked", "nls" })
 @Repository
-public class SysUserDao extends BaseDao<SysUser> implements ISysUserDao
+public class SysUserDao extends BaseDao<SysUser> implements ISysUserDao, UserDetailsService
 {
 	@Override
 	public SysUser getUserByName(String name)
@@ -53,5 +56,11 @@ public class SysUserDao extends BaseDao<SysUser> implements ISysUserDao
 		criteria.setFirstResult(firstResult);
 		criteria.setMaxResults(maxResult);
 		return criteria.list();
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
+	{
+		return getUserByName(username);
 	}
 }

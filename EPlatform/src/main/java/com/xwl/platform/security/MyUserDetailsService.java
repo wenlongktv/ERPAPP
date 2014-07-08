@@ -18,34 +18,32 @@ import com.xwl.platform.service.ISysUserService;
 
 @SuppressWarnings("javadoc")
 @Component("MyUserDetailsService")
-public class MyUserDetailsService
-        implements UserDetailsService
+public class MyUserDetailsService implements UserDetailsService
 {
-    Logger                  logger = Logger.getLogger(this.getClass());
+	Logger logger = Logger.getLogger(this.getClass());
 
-    @Autowired
-    private ISysUserService userService;
+	@Autowired
+	private ISysUserService userService;
 
-    @SuppressWarnings("nls")
-    @Transactional
-    @Override
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException
-    {
-        // 根据登录名搜索用户
-        SysUser user = this.userService.getUserByName(username);
+	@SuppressWarnings("nls")
+	@Transactional
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
+	{
+		// 根据登录名搜索用户
+		SysUser user = this.userService.getUserByName(username);
 
-        if ( null == user )
-        {
-            throw new UsernameNotFoundException("user is not exist!");
-        }
+		if (null == user)
+		{
+			throw new UsernameNotFoundException("user is not exist!");
+		}
 
-        if ( user.isEnabled() )
-        {
-            return user;
-        }
+		if (user.isEnabled())
+		{
+			return user;
+		}
 
-        this.logger.error("user is unauthorizedAccess!");
-        throw new UsernameNotFoundException("user is unauthorizedAccess!");
-    }
+		this.logger.error("user is unauthorizedAccess!");
+		throw new UsernameNotFoundException("user is unauthorizedAccess!");
+	}
 }
