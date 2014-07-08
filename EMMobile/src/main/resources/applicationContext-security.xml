@@ -1,22 +1,24 @@
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/security
-           http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+           http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<http pattern="/login.jsp" security="none" />
+	<http pattern="/accessDenied.jsp" security="none" />
+	<http pattern="/error.jsp" security="none" />
 	<http pattern="/res/**" security="none" />
-	<http pattern="/index.jsp" security="none" />
+<!-- 	<http pattern="/index.jsp" security="none" /> -->
 
 	<http auto-config="false" access-denied-page="/accessDenied.jsp">
 		<!-- 制定登录界面 -->
-		<form-login login-page="/login.jsp" />
+		<form-login login-page="/login.jsp" authentication-failure-url="/error.jsp"/>
 		<logout logout-success-url="/login.jsp" delete-cookies="JSESSIONID" />
 
 		<!-- session management -->
-		<session-management invalid-session-url="/login.jsp"
-			session-fixation-protection="migrateSession">
+		<session-management invalid-session-url="/login.jsp" session-fixation-protection="migrateSession">
 <!-- 			<concurrency-control max-sessions="1" error-if-maximum-exceeded="true" /> -->
 		</session-management>
 
@@ -34,7 +36,6 @@
 		<beans:property name="accessDecisionManager" ref="MyAccessDecisionManager" />
 		<!-- 资源数据定义，即定义某一资源可以被哪些角色访问 -->
 		<beans:property name="securityMetadataSource" ref="MyInvocationSecurityMetadataSource" />
-		<!--  -->
 		<beans:property name="observeOncePerRequest" value="false" />
 	</beans:bean>
 
@@ -46,7 +47,7 @@
 	<authentication-manager alias="MyAuthenticationManager">
 		<!-- 这里可以设置自定义的Service，从数据库中读取权限信息 -->
 		<authentication-provider user-service-ref="MyUserDetailsService">
-			<password-encoder ref="passwordEncoder" />
+<!-- 			<password-encoder ref="passwordEncoder" /> -->
 		</authentication-provider>
 	</authentication-manager>
 

@@ -26,5 +26,10 @@
 		<property name="maxUploadSize" value="10485760000" />
 		<property name="maxInMemorySize" value="40960" />
 	</bean>
-
+	
+	<!-- 加密器 -->
+	<bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder">
+		<constructor-arg value="DH-PUB" />
+	</bean>
+	
 </beans>

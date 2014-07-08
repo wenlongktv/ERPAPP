@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
-<html lang="en-us">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
@@ -109,7 +109,7 @@
 					-->
 				
 				<ul>
-					<li><a href="/ep"><i class="fa fa-lg fa-fw fa-list-alt"></i><span class="menu-item-parent">主页</span></a>
+					<li><a href="/<%=request.getContextPath() %>"><i class="fa fa-lg fa-fw fa-list-alt"></i><span class="menu-item-parent">主页</span></a>
 					</li>
 					
 					<li><a href="#"><i class="fa fa-lg fa-fw fa-list-alt"></i><span class="menu-item-parent">销售记录管理</span></a>
@@ -212,7 +212,7 @@
 <!-- 		<script src="res/js/plugin/msie-fix/jquery.mb.browser.min.js"></script> -->
 		
 		<!-- data tables -->
-		<script src="res/js/plugin/datatables/jquery.dataTables-cust.min.js"></script>
+		<script src="res/js/plugin/datatables/jquery.dataTables.min.js"></script>
 		
 		<!--[if IE 7]>
 			<h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>

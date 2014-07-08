@@ -216,6 +216,15 @@ function loadAjaxContent(url, divId)
     });
 }
 
+function loadJson(url, callback)
+{
+    $.ajax({
+		url : url,
+		type : "GET",
+		success : callback
+    });
+}
+
 //UPDATE BREADCRUMB
 function drawBreadCrumb(html) {
 
