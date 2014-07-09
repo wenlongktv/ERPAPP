@@ -47,7 +47,7 @@
 	<authentication-manager alias="MyAuthenticationManager">
 		<!-- 这里可以设置自定义的Service，从数据库中读取权限信息 -->
 		<authentication-provider user-service-ref="MyUserDetailsService">
-<!-- 			<password-encoder ref="passwordEncoder" /> -->
+			<password-encoder ref="passwordEncoder" />
 		</authentication-provider>
 	</authentication-manager>
 
