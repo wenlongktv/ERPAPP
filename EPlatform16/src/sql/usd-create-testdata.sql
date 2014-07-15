@@ -1,9 +1,6 @@
 truncate table pub_user; 
-INSERT INTO pub_user (id, username, password, phone, email, enabled, accountNonExpired, accountNonLocked, credentialsNonExpired) values
-(1, 'test', 'e85576b4c7e09df31bd1eee367c38486b2a7e0b7b79ed942cd670fce8038e20c0cea8e6b82632d91', '12345', '123@ge.com', 1, 1, 1, 1),
-(2, 'test2', 'e85576b4c7e09df31bd1eee367c38486b2a7e0b7b79ed942cd670fce8038e20c0cea8e6b82632d91', '12345', '123@ge.com', 1, 1, 1, 1),
-(3, 'test3', 'e85576b4c7e09df31bd1eee367c38486b2a7e0b7b79ed942cd670fce8038e20c0cea8e6b82632d91', '12345', '123@ge.com', 1, 1, 1, 1),
-(4, 'test4', 'e85576b4c7e09df31bd1eee367c38486b2a7e0b7b79ed942cd670fce8038e20c0cea8e6b82632d91', '12345', '123@ge.com', 1, 1, 1, 1);
+INSERT INTO pub_user (id, username, password, phone, email, enabled) values
+(1, 'test',        'e85576b4c7e09df31bd1eee367c38486b2a7e0b7b79ed942cd670fce8038e20c0cea8e6b82632d91', '12345', '123@ge.com', 1);
 
 truncate table pub_role;
 INSERT INTO pub_role (id, name) VALUES 
@@ -37,8 +34,6 @@ INSERT INTO `pub_user_role` VALUES
 (1,1,1),
 (2,2,1),
 (3,3,1);
-
-
 
 truncate table pub_resource;
 INSERT INTO `pub_resource` VALUES 

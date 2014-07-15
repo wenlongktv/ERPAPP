@@ -39,40 +39,49 @@
 	</context-param>
 	
 	<!-- security配置 -->
-	<filter>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<listener>
-	    <listener-class>
-	      org.springframework.security.web.session.HttpSessionEventPublisher
-	    </listener-class>
-    </listener>
+<!-- 	<filter> -->
+<!-- 		<filter-name>springSecurityFilterChain</filter-name> -->
+<!-- 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>springSecurityFilterChain</filter-name> -->
+<!-- 		<url-pattern>/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
+<!-- 	<listener> -->
+<!-- 	    <listener-class> -->
+<!-- 	      org.springframework.security.web.session.HttpSessionEventPublisher -->
+<!-- 	    </listener-class> -->
+<!--     </listener> -->
 	
 	<!-- 浏览器不支持put,delete等method,由该filter将/blog?_method=delete转换为标准的http delete方法 -->
 	<filter>
 		<filter-name>HiddenHttpMethodFilter</filter-name>
 		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
 	</filter>
-
 	<filter-mapping>
 		<filter-name>HiddenHttpMethodFilter</filter-name>
 		<servlet-name>springMVC</servlet-name>
 	</filter-mapping>
-
+	
+	<filter>
+		<description>微信消息接入接口</description>
+		<filter-name>WeixinUrlFilter</filter-name>
+		<filter-class>com.xwl.platform.common.weinxin.WeixinUrlFilter</filter-class>
+    </filter>
+	<filter-mapping>
+		<filter-name>WeixinUrlFilter</filter-name>
+		<url-pattern>/api/vtoken</url-pattern>
+	</filter-mapping>
+    
 	<!-- 	Creates the Spring Container shared by all Servlets and Filters Sitemesh -->
-<!-- 	<filter> -->
-<!-- 		<filter-name>sitemesh</filter-name> -->
-<!-- 		<filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class> -->
-<!-- 	</filter> -->
-<!-- 	<filter-mapping> -->
-<!-- 		<filter-name>sitemesh</filter-name> -->
-<!-- 		<url-pattern>/*</url-pattern> -->
-<!-- 	</filter-mapping> -->
+	<filter>
+		<filter-name>sitemesh</filter-name>
+		<filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	
 	
 	<!-- openSessionInView配置, 在hibernate4中，getCurrentSession()事务会自动关闭，所以在有所jsp页面查询数据都会关闭session。要想在jsp查询数据库需要加入：-->

@@ -2,17 +2,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.xwl.platform</groupId>
-	<artifactId>platform</artifactId>
+	<artifactId>platform16</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0.0</version>
-	<name>E platform</name>
+	<name>Eplatform16</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<org.springframework.version>4.0.0.RELEASE</org.springframework.version>
+		<org.springframework.version>3.2.9.RELEASE</org.springframework.version>
 		<org.spring-security.version>3.2.4.RELEASE</org.spring-security.version>
-		<org.hibernate.version>4.3.0.Final</org.hibernate.version>
+		<org.hibernate.version>3.3.2.GA</org.hibernate.version>
 		<org.hibernate.annotations.version>3.5.6-Final</org.hibernate.annotations.version>
 		<mysql.version>5.1.26</mysql.version>
 		<unitils.version>3.3</unitils.version>
@@ -60,26 +60,26 @@
 		</dependency>
 
 		<!-- Spring Security 相关配置 -->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<version>${org.spring-security.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<version>${org.spring-security.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<version>${org.spring-security.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-taglibs</artifactId>
-			<version>${org.spring-security.version}</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.security</groupId> -->
+<!-- 			<artifactId>spring-security-web</artifactId> -->
+<!-- 			<version>${org.spring-security.version}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.security</groupId> -->
+<!-- 			<artifactId>spring-security-config</artifactId> -->
+<!-- 			<version>${org.spring-security.version}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.security</groupId> -->
+<!-- 			<artifactId>spring-security-core</artifactId> -->
+<!-- 			<version>${org.spring-security.version}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.security</groupId> -->
+<!-- 			<artifactId>spring-security-taglibs</artifactId> -->
+<!-- 			<version>${org.spring-security.version}</version> -->
+<!-- 		</dependency> -->
 
 		<!-- Hibernate 配置相关 -->
 		<dependency>
@@ -100,7 +100,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>${org.hibernate.version}</version>
+			<version>4.0.0.GA</version>
 		</dependency>
 
 		<!-- hibernate 二级缓存 -->

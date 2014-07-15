@@ -1,68 +1,76 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
-<header>
-	<h2>用户管理 </h2>				
-</header>
-<!-- widget content -->
-<div class="widget-body no-padding">
-	<form id="searchForm" class="smart-form">
-		<fieldset>
-			<div class="row">
-				<section class="col col-6">
-					<label class="input"> <i class="icon-prepend fa fa-user"></i>
-						<input type="text" name="fname" placeholder="用户名">
-					</label>
-				</section>
-				<section class="col col-6">
-					<label class="input"> <i class="icon-prepend fa fa-user"></i>
-						<input type="text" name="lname" placeholder="联系电话">
-					</label>
-				</section>
-			</div>
-		</fieldset>
-		<footer>
-			<a class="btn btn-primary" onclick="searchUser()">查询用户</a>
-		</footer>
-	</form>
-	<div class="widget-body">
-		<table id="userTable" class="table table-striped table-hover" >
-		<thead><tr><th>ID</th></tr>
-		  <tr><th>用戶名</th></tr>
-		</thead>
-		<tbody></tbody>
-		</table>
+<button class='btn btn-primary btn-lg' data-toggle="collapse" data-target="#form"><span class="glyphicon glyphicon-search"></span> 查找用户 </button>
+<button class='btn btn-primary btn-lg' onclick="addUser()"><span class="glyphicon glyphicon-plus"></span> 新增用户 </button>
+
+<div class="panel">
+  <div id='form' class="panel-body collapse">
+    <form id="searchForm" role="form">
+	<div class="row">
+		  <div class='col-md-6'><div class="input-group">
+		  	<span class="input-group-addon">用户名</span>
+		     <input type="text" class="form-control" id="firstname" placeholder="搜索名字" />
+		  </div></div>
+		  <div class='col-md-6'><div class="col-md-6 input-group">
+		  	<span class="input-group-addon">电话号码</span>
+		    <input type="text" class="form-control" id="firstname" placeholder="搜索电话号码" />
+		  </div></div>
 	</div>
+	</form>
+	<div class='panel-body'><button id='search' class='btn btn-default' onclick="search()">
+		<span class="glyphicon glyphicon-search"></span> 查 找 </button>
+	</div>
+  </div>
+   
+</div>
+
+<!-- <div id="form" class="collapse in"> -->
+<!-- <form id="searchForm" role="form"> -->
+<!-- 	<div class="row"> -->
+<!-- 		<div class="form-group"> -->
+<!-- 		  <label for="firstname" class="col-md-1 control-label">用户名</label> -->
+<!-- 		  <div class="col-md-5"> -->
+<!-- 		     <input type="text" class="form-control" id="firstname" placeholder="搜索名字"> -->
+<!-- 		  </div> -->
+<!-- 		  <label for="firstname" class="col-md-1 control-label">电话号码</label> -->
+<!-- 		  <div class="col-md-5"> -->
+<!-- 		     <input type="text" class="form-control" id="firstname" placeholder="搜索电话号码"> -->
+<!-- 		  </div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- </form> -->
+<!-- <button id='search' class='btn btn-primary' onclick="search()">查找</button> -->
+<!-- </div> -->
+
+<div class="panel">
+<table id="userTable" class="table table-striped table-hover">
+	<thead><tr>
+	<th>ID</th>
+	<th>用戶名</th>
+	<th>电话号码</th>
+	<th>E-mail</th>
+	</tr></thead>
+	<tbody></tbody>
+</table>
 </div>
 
 <script>
-
-function searchUser()
+function search()
 {
-// 	$('#userTable').html("");
-// 	$('#userTable').dataTable({
-//     	"bServerSide": true,
-//         "bProcessing": true,                           //当datatable获取数据时候是否显示正在处理提示信息。
-//         "sAjaxSource": "user/list",
-//         "bDestroy": true,
-//      	"sAjaxDataProp": "aaData",				       //后台把json数据注入的对象名
-//      	'bPaginate': true,                             //是否分页。
-//      	'bFilter': false,                              //是否使用内置的过滤功能。
-//      	'bLengthChange': false, 	             	       //是否允许用户自定义每页显示条数(iDisplayLength,default=10)
-//      	"aoColumns":
-// 		     	[
-// 		     	    { "sTitle": "id","mDataProp": "id"},
-// 		     		{ "sTitle": "用户名","mDataProp": "username"},
-// 		 			{ "sTitle": "电话号码","mDataProp": "phone"}
-// 		     	]
-//  	});
-	var data = loadJson("user/list", fillDataTable);
-	return false;
+	_loadJsonObj('sysUser/ajax/list',fillDataTable);
 }
+
+function addUser()
+{
+	_loadAjaxPage("sysUser/ajax?action=add");
+}
+
 
 function fillDataTable(data)
 {
-	alert( JSON.stringify(data.aaData));
-	$('#userTable').DataTable( {
+// 	alert(JSON.stringify(data));	
+	$('#userTable').DataTable({
+		"autoWidth": false,
 		"bProcessing": true,
 		"bDestroy": true,
 		'bLengthChange': false,
@@ -70,10 +78,11 @@ function fillDataTable(data)
 	    columns: [
 					{ data: 'id' },
 			        { data: 'username' },
-			        { data: 'password' },
 			        { data: 'email' },
 			        { data: 'phone' }
-			    ]   
-		} );
+			    ],
+		language: dataTableLanguage
+	});
 }
+
 </script>

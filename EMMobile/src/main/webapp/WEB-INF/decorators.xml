@@ -2,10 +2,13 @@
 <decorators defaultdir="/WEB-INF/decorator">
 	<!-- Any urls that are excluded will never be decorated by Sitemesh -->
 	<excludes webapp="/">
-		<pattern>/*</pattern>
+		<pattern>*login*</pattern>
+		<pattern>*.css</pattern>
+		<pattern>*.js</pattern>
+		<pattern>*/ajax*</pattern>
 	</excludes>
 
 	<decorator name="main" page="main.jsp">
-<!-- 		<pattern>/</pattern> -->
+		<pattern>/*</pattern>
 	</decorator>
 </decorators>

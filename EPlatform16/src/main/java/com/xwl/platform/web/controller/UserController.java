@@ -18,7 +18,6 @@ import java.util.Map;
 import javax.validation.constraints.Min;
 
 import org.apache.log4j.Logger;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -175,8 +174,8 @@ public class UserController
 	@RequestMapping(value = "/password", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> password(@RequestParam(value = "sysUserId", required = true) @Min(5) long sysUserId,
-			@RequestParam(value = "oldPwd", required = true) @NotBlank String oldPwd,
-			@RequestParam(value = "newPwd", required = true) @NotBlank String newPwd)
+			@RequestParam(value = "oldPwd", required = true) String oldPwd,
+			@RequestParam(value = "newPwd", required = true) String newPwd)
 	{
 		Map<String, Object> result = new HashMap<String, Object>();
 

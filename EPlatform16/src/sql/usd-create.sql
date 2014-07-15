@@ -2,12 +2,11 @@
 drop database if exists erpapp;
 
 /*==============================================================*/
-/* Database: usd                                                */
+/* Database: erpapp                                             */
 /*==============================================================*/
 create database erpapp;
 
 use erpapp;
-
 
 /*==============================================================*/
 /* Table: pub_resource                                          */
@@ -73,18 +72,6 @@ create table pub_user_role
    primary key (id)
 )
 auto_increment=10000;
-
-/*==============================================================*/
-/* Table: sms_verify                                            */
-/*==============================================================*/
-create table sms_verify
-(
-   id                   int unsigned not null auto_increment,
-   start_time           datetime not null,
-   phone                varchar(11) not null,
-   code                 int(4) not null,
-   primary key (id)
-);
 
 /*==============================================================*/
 /* Table: sys_log                                               */
