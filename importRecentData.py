@@ -19,23 +19,35 @@ def loadDB():
 	return
 
 def importRecentCollege():
+	excelData = readCollegeAttributeFromExcel(11)
+	updateAttributeForCollege('updated_column_name', excelData, 'src_column_excel')
+
+def readCollegeAttributeFromExcel(column_count):
 	data = xlrd.open_workbook('test.xlsx') # 打开xls文件
-	sheets = data.sheets()
+	sheet = data.sheets()[0]
+	print (sheet.name)
+	nrows = sheet.nrows
 	
-	for sheet in sheets:
-		if not sheet.name.isdigit():
+	headers=sheet.row_values(0)[:column_count]
+	data=[]
+	for rownum in range(nrows):
+		if rownum == 0:
 			continue
-		print (sheet.name)
-		nrows = sheet.nrows 
-		for i in range(nrows): # 循环逐行打印
-			print (sheet.row_values(i)[:13]) # 取前十三列
-
+		data.append(sheet.row_values(rownum)[:column_count])
 	
-#loadDB()
+	excelData = {"headers":headers, "data":data}
+	return excelData
+		
+		
+
+def updateAttributeForCollege(updated_column_name, excelData, src_column_excel):
+	src_excel_headers = ['major_type', 'batch', 'collegue_name']
+	if ('major_type' not in excelData['headers']) | ('batch' not in excelData['headers']) | ('collegue_name' not in excelData['headers']):
+		print('basic header not much')
+		return
+
+	sql="update tb_collegue_statistic set " +updated_column_name+" = ? where major_type = ? AND batch=? AND collegue_name = ?"
+	#DbHelper.updateBatch(sql, )
+
+#start application
 importRecentCollege()
-
-def updateAttributeForCollege(column_name):
-	src_excel_headers = ['major_type', 'batch', 'school_name']
-	updatedcolumn_in_db = ""
-	
-	
