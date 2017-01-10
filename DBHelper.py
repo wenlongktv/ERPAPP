@@ -29,3 +29,16 @@ def query(sql):
 	finally:
 		connection.close()
 	return resutLit;
+	
+
+
+def updateBatch(sql, paramsList):
+	try:
+		with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+			cursor = connection.cursor()
+			for params in paramsList:
+				cursor.execute(sql, paramsList)
+			connection.commit();
+	finally:
+		cursor.close()
+		connection.close()
